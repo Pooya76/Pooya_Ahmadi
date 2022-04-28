@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tehran Gasht{% endblock %}
+
+{% block body %}
+
+
+<form method="post">
+
+<div>
+    <label>Name:</label>
+    <input name="name" type="text" value="{{ attraction.name }}"/>
+</div>
+
+<div>
+    <label>Short description:</label>
+    <input name="short_description" type="text" value="{{ attraction.shortDescription }}"/>
+</div>
+
+
+<div>
+    <label>Full Description:</label>
+    <input name="full_description" type="text" value="{{ attraction.fullDescription }}"/>
+</div>
+
+
+<div>
+    <label>Score:</label>
+    <input name="score" type="text" value="{{ attraction.score }}"/>
+</div>
+
+<input type="submit" />
+
+</form>
+
+
+{% endblock %}
