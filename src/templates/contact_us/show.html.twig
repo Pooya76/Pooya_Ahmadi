@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ContactUsController!{% endblock %}
+
+{% block body %}
+    <ul>
+        {% for message in allMessages %}
+            <li>
+                <a href="{{ path('app_message_view',{id: message.id} )}}">{{ message.subject }}</a>
+
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+

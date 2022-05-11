@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hotel{% endblock %}
+
+{% block body %}
+    <ul>
+        {% for hotel in allHotels %}
+            <li>
+                <h4>{{ hotel.name }}</h4>
+                <a href="{{ path('app_hotel_view',{id: hotel.id} )}}">edit</a>
+                <a href="{{ path('app_hotel_delete',{id: hotel.id} )}}">delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Room!{% endblock %}
+
+{% block body %}
+    <ul>
+        {% for room in allRoom %}
+            <li>
+                <h4>Bed size : {{ room.bedSize }}</h4><br>
+                <label for="roomStatus"> Available</label>
+                {% if room.isEmpty == false%}
+                    <input type="checkbox" value="{{room.isEmpty}}" id="roomStatus" name="roomStatus" checked disabled>
+                {% else %}
+                    <input type="checkbox" value="{{room.isEmpty}}" id="roomStatus" name="roomStatus" disabled>
+                {%endif%}
+                <br>
+                <h4>Price : {{ room.price }}</h4>
+                <h4>Hotel : {{ room.hotel.name }}</h4>
+                <a href="{{ path('app_room_view',{id: room.hotel.id} )}}">edit</a>
+                <a href="{{ path('app_room_delete',{id: room.hotel.id} )}}">delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
