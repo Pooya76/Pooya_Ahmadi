@@ -69,6 +69,15 @@ class HotelController extends AbstractController
         ]);
     }
 
+    #[Route('/hotel/detail/{id}', name: 'app_hotel_detail')]
+    public function showHotelInfo(Hotel $hotel): Response
+    {
+
+        return $this->renderForm('hotel/detail.html.twig', [
+            'hotel' => $hotel,
+        ]);
+    }
+
     #[Route('/hotel/delete/{id}', name: 'app_hotel_delete')]
     public function deleteHotel(Hotel $hotel,  ManagerRegistry $doctrine): Response
     {

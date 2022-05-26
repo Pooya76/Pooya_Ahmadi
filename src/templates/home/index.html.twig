@@ -4,6 +4,14 @@
 
 {% block body %}
 
+
+    {% if is_granted('ROLE_USER') -%}
+        <a href="{{ path('app_logout')}}">logout</a>
+    {% else %}
+        <a href="{{ path('app_register')}}">create account</a>
+        <br>
+        <a href="{{ path('app_login')}}">login</a>
+    {%- endif %}
 <p>
     Company Tehran Gasht.
 </p>

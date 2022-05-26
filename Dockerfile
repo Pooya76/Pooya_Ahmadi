@@ -15,6 +15,9 @@ RUN apt-get -y update && apt-get -y install git
 RUN docker-php-ext-install pdo_mysql
 
 
+RUN apt-get update && apt-get install -y yarn
+RUN apt-get update && apt-get install -y nodejs
+
 # install xdebug
 # https://hub.docker.com/_/php
 RUN pecl install xdebug && docker-php-ext-enable xdebug
