@@ -6,7 +6,7 @@ use App\Repository\RoomRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
-class Room
+class Room implements TimeLogInterface, UserLogInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,6 +25,18 @@ class Room
     #[ORM\ManyToOne(targetEntity: Hotel::class, inversedBy: 'rooms')]
     #[ORM\JoinColumn(nullable: false)]
     private $hotel;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private $createdAt;
+
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private $updatedAt;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private $createdBy;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private $updatedBy;
 
     public function getId(): ?int
     {
@@ -75,6 +87,54 @@ class Room
     public function setHotel(?Hotel $hotel): self
     {
         $this->hotel = $hotel;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getUpdatedBy(): ?User
+    {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy(?User $updatedBy): self
+    {
+        $this->updatedBy = $updatedBy;
 
         return $this;
     }

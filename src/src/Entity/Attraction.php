@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\AttractionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\MappedSuperclass;
 
 #[ORM\Entity(repositoryClass: AttractionRepository::class)]
+#[MappedSuperclass]
 class Attraction
 {
     #[ORM\Id]

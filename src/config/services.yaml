@@ -27,3 +27,11 @@ services:
         arguments: [ "@knp_menu.factory" ]
         tags:
             - { name: knp_menu.menu_builder, method: createMainMenu, alias: main } # The alias is what is used to retrieve the menu
+
+
+    App\EventListener\MyLogListener:
+
+        tags:
+            - { name: doctrine.event_listener, event: prePersist,  connection: 'default' }
+            - { name: doctrine.event_listener, event: preUpdate,  connection: 'default' }
+
