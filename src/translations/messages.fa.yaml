@@ -1,0 +1,9 @@
+hotel:
+  name: "اسم هتل"
+  address: "آدرس"
+  rate: "امتیاز"
+
+name: "اسم"
+address: "آدرس"
+rate: "امتیاز"
+save: "جدید/بروزرسانی"

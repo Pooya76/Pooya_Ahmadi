@@ -3,7 +3,7 @@
 {% block title %}Hotel{% endblock %}
 
 {% block body %}
-    <h4>Hotel name : {{ hotel.name }}</h4>
-    <p>Address: {{ hotel.address }}</p>
-    <p>Rate : {{ hotel.rate }}</p>
+    <h4>{{'hotel.name'|trans}} : {{ hotel.name }}</h4>
+    <p> {{'hotel.address'|trans}} : {{ hotel.address }}</p>
+    <p style="display:inline"> {{'hotel.rate'|trans}} : </p> <p style="display:inline"> {{ hotel.rate }}</p>
 {% endblock %}

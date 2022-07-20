@@ -1,0 +1,10 @@
+hotel:
+  name: Hotel name
+  address: Address
+  rate: Rate
+
+name: Name
+address: Address
+rate: Rate
+save: Create/Update
+

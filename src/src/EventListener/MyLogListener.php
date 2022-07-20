@@ -9,11 +9,12 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class MyLogListener
 {
-    private $user;
+    private User $user;
 
     public function __construct(TokenStorageInterface $tokenStorage)
     {
         if(!is_null($tokenStorage->getToken()))
+            /** @var User $user */
             $this->user = $tokenStorage->getToken()->getUser()->eraseCredentials();
 
     }
@@ -28,9 +29,7 @@ class MyLogListener
             if( $entity instanceof UserLogInterface){
                 $entity->setCreatedBy($this->user);
             }
-
         }
-
     }
 
     public function preUpdate(LifecycleEventArgs $args)

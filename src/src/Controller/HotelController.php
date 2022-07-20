@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Hotel;
 use App\Entity\Room;
+use App\Entity\User;
 use App\Repository\HotelRepository;
 use App\Repository\MessagesRepository;
 use App\Repository\RoomRepository;
@@ -12,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Security;
 
 class HotelController extends AbstractController
 {
@@ -23,14 +26,23 @@ class HotelController extends AbstractController
         ]);
     }
 
-    #[Route('/hotel/create', name: 'app_hotel_create')]
-    public function createHotel(Request $request, ManagerRegistry $doctrine): Response
+
+    #[Route(
+        path: '/{_locale}/hotel/create',
+        name: 'app_hotel_create',
+        requirements: ['_locale' => 'en|fa'],
+        defaults: ['_locale' => 'en']
+    )]
+    public function createHotel(Request $request, ManagerRegistry $doctrine, TokenStorageInterface $tokenStorage, Security $security): Response
     {
        $hotel = new Hotel();
 
         $form = $this->createForm(\HotelType::class, $hotel);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() and $form->isValid()) {
+
+            /** @var Hotel $hotel */
             $hotel = $form->getData();
             $entityManager = $doctrine->getManager();
             $entityManager->persist($hotel);
@@ -51,14 +63,21 @@ class HotelController extends AbstractController
         ]);
     }
 
-    #[Route('/hotel/{id}', name: 'app_hotel_view')]
+    #[Route(
+        path: '/{_locale}/hotel/edit/{id}',
+        name: 'app_hotel_view',
+        requirements: ['_locale' => 'en|fa'],
+        defaults: ['_locale' => 'en']
+    )]
     public function editHotel(Request $request, Hotel $hotel,  ManagerRegistry $doctrine): Response
     {
-        $form = $this->createForm(\HotelType::class, $hotel);
+        $this->denyAccessUnlessGranted('edit', $hotel);
 
+        $form = $this->createForm(\HotelType::class, $hotel);
         $form->handleRequest($request);
         if ($form->isSubmitted() and $form->isValid()) {
             $hotel = $form->getData();
+
             $entityManager = $doctrine->getManager();
             $entityManager->persist($hotel);
             $entityManager->flush();
@@ -69,7 +88,14 @@ class HotelController extends AbstractController
         ]);
     }
 
-    #[Route('/hotel/detail/{id}', name: 'app_hotel_detail')]
+
+
+    #[Route(
+        path: '/{_locale}/hotel/detail/{id}',
+        name: 'app_hotel_detail',
+        requirements: ['_locale' => 'en|fa'],
+        defaults: ['_locale' => 'en']
+    )]
     public function showHotelInfo(Hotel $hotel): Response
     {
 
@@ -81,6 +107,8 @@ class HotelController extends AbstractController
     #[Route('/hotel/delete/{id}', name: 'app_hotel_delete')]
     public function deleteHotel(Hotel $hotel,  ManagerRegistry $doctrine): Response
     {
+
+
         $entityManager = $doctrine->getManager();
         $entityManager->remove($hotel);
         $entityManager->flush();
